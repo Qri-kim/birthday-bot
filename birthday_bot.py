@@ -28,7 +28,7 @@ with open("birthdays.csv", encoding="utf-8") as f:
 
 # 슬랙 메시지 전송
 if birthdays_today:
-    message = "🎂 *오늘의 발렌 생일자를 소개합니다!*\n\n"
+    message = "🎂 *오늘의 발렌 생일자를 소개합니다!* <!channel>\n\n"
     for person in birthdays_today:
         message += f"🎉 *{person['부서']}* {person['이름']} 님, 생일을 축하합니다!\n"
     message += "\n모두 함께 축하해 주세요 🥳"
