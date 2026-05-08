@@ -1,0 +1,20 @@
+name: Birthday Bot
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # 매일 KST 오전 10시 (UTC 01:00)
+  workflow_dispatch:      # 수동 테스트용
+
+jobs:
+  send-birthday:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: pip install slack-sdk
+      - run: python birthday_bot.py
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
