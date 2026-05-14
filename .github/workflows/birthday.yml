@@ -2,9 +2,9 @@ name: Birthday Bot
 
 on:
   schedule:
-    # 한국 시간(KST) 오전 09:43 = UTC 00:43
-    # 정각을 피해 설정하여 실행 지연을 최소화합니다.
-    - cron: '43 0 * * *'
+    # 9시간 지연을 고려한 설정입니다.
+    # UTC 15:43에 실행 예약을 걸면, 9시간 뒤인 UTC 00:43(KST 09:43)에 작동할 확률이 높습니다.
+    - cron: '43 15 * * *'
   workflow_dispatch:      # 수동 테스트용
 
 jobs:
