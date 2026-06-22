@@ -19,12 +19,22 @@ birthdays_today = []
 with open("birthdays.csv", encoding="utf-8") as f:
     reader = csv.DictReader(f)
     for row in reader:
-        if (
-            int(row["생일_월"]) == today_month
-            and int(row["생일_일"]) == today_day
-            and row["재직여부"] == "Y"
-        ):
-            birthdays_today.append(row)
+        try:
+            # 데이터 양쪽의 공백을 제거(.strip())한 뒤 숫자로 변환합니다.
+            # 만약 빈 칸('')이거나 숫자가 아니면 자동으로 에러를 감지하고 다음 행으로 넘어갑니다.
+            row_month = int(str(row["생일_월"]).strip())
+            row_day = int(str(row["생일_일"]).strip())
+            
+            if (
+                row_month == today_month
+                and row_day == today_day
+                and row["재직여부"] == "Y"
+            ):
+                birthdays_today.append(row)
+                
+        except (ValueError, TypeError, KeyError):
+            # 유령 행(빈 줄), 공백 데이터, 혹은 칸 이름이 맞지 않는 경우 에러를 내지 않고 패스합니다.
+            continue
 
 # 슬랙 메시지 전송
 if birthdays_today:
